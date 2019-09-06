@@ -1,0 +1,193 @@
+<!-- views/pages/properties.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="/public/leafletmap/css/leaflet.css">
+  <% include ../partials/head %>
+</head>
+
+<body>
+  <header>
+    <% include ../partials/header %>
+  </header>
+
+  <main>
+    <section class="titlerow">
+      <div class="container">
+        <div class="row">
+          <div class="col col-sm-12">
+            <h1>Properties to Rent</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="Mapbox">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col col-sm-6">
+            <div style="margin: auto!important;max-width: 500px; padding: 40px 0 40px 0">
+              <h2>Find a home</h2>
+              <form method="post" action="/s/properties/">
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="inputEmail4">Where</label>
+                    <select class="form-control" id="country">
+                      <% countryList.forEach(function (country){ %>
+                        <option> <%= country %> </option>
+                      <% }); %>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-12">
+                    <label for="inputEmail4">Region</label>
+                    <select class="form-control" id="region" name="region">
+                      <% regionList.forEach(function (region){ %>
+                        <option> <%= region %> </option>
+                      <% }); %>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">From </label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="dd-mm-yy">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress2">To</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="dd-mm-yy">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">Type </label>
+                    <select class="form-control" id="property_type" name="property_type">
+                      <option>house</option>
+                      <option>flat</option>
+                      <option>maisonette</option>
+                      <option>bungalow</option>
+                      <option>room only</option>
+                      <option>garage</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress2">Bedrooms</label>
+                    <select class="form-control">
+                      <option> select </option>
+                      <option>1 </option>
+                      <option>2 </option>
+                      <option>3 </option>
+                      <option>4 </option>
+                      <option>5 </option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary  btn-block">Search</button>
+              </form>
+
+            </div>
+          </div>
+          <div class="col col-sm-6">
+            <div id="mapid1" style="width: 100%; height: 600px;"></div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-cardbox threebox popular-listings">
+      <div class="container">
+        <div class="row">
+          <div class="col col-md-12 text-center">
+            <h2 class="popular-listings-title">Popular Listings</h2>
+          </div>
+        </div>
+        <div class="card-deck">
+          <% propertyList.forEach( function(property) { %>
+          <div class="m-b-30" style="width:33%!important;padding: 15px;">
+            <a href="/property_item/1" target="_blank" aria-hidden="true" tabindex="-1">
+            <div id="featured" class="carousel slide carousel" data-ride="carousel">
+              <!--slider navigate-->
+              <ol class="carousel-indicators top-indicator">
+                <% for( var i=0; i < property["propertyImageUrls"].length; i++ ) {
+                  if(i === 0) {%>
+                    <li data-target="#featured" data-slide-to="<%= i %>" class="active"></li>
+                  <% } else {%>
+                    <li data-target="#featured" data-slide-to="<%= i %>"></li> <%
+                  }
+                } %>
+
+              </ol>
+              <div class="carousel-inner">
+                <!--Item slider-->
+                <% property["propertyImageUrls"].forEach( function(image) { %>
+                  <div class="<%= property["propertyImageUrls"][0] === image ? "carousel-item active" : "carousel-item"%>" >
+                    <img class="card-img-top img-fluid" src="<%= image %>" alt="Card image cap">
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+
+            <div class="card-body"  style="background-color: white;">
+              <div class="fullwidthbox">
+                <div class="rating">
+                  <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Meh">1
+                    stars</label>
+                  <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2
+                    stars</label>
+                  <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Kinda bad">3
+                    stars</label>
+                  <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Sucks big tim">4
+                    stars</label>
+                  <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Sucks big time">5
+                    star</label>
+                </div>
+              </div>
+              <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industry's standard dummy text ever since the 1500s, when ...</p>
+              <div class="user-detail" style="float: none;">
+                <div class="user-pic"><img src="/public/images/Contractors.jpg" alt=""></div>
+                <div class="user-txt">
+                  <p class="name">Amy</p>
+                  <p class="state"><%= property['Country']%></p>
+                </div>
+
+              </div>
+            </div>
+          </a>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+  <footer>
+    <% include ../partials/footer %>
+    <script src="/public/leafletmap/js/leaflet.js"></script>
+    <script>
+      function reloadData(){
+        const country = $('#country').val();
+        $.ajax({
+          type: 'GET',
+          url: '/getRegionList?Country=' + country,
+          success: function(data) {
+            const regionList = data.regionList;
+            let html = '';
+            for(let item of regionList){
+              html += '<option>' + item + '</option>';
+            }
+            $('#region').html(html);
+          }
+        });
+      }
+      $('#country').change(function () {
+        reloadData();
+      });
+    </script>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!-- views/pages/admin.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/head %>
+  <link rel="stylesheet" href="/public/css/admin-style.css">
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+  </head>
+
+<main>
+  <nav class="navbar navbar-expand navbar-dark bg-primary"> <span class="admin-logo">Logo</span> <a
+            href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon"></span></a> <button
+            class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
+            aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation"> <span
+              class="navbar-toggler-icon"></span> </button>
+    <div class="collapse navbar-collapse" id="navbarsExample02">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item"> <a class="nav-link" href="#">Link</a> </li>
+      </ul>
+      <form class="form-inline my-2 my-md-0"> </form>
+    </div>
+  </nav>
+  <div id="wrapper" class="toggled">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand"> <a href="#"> Start Bootstrap </a> </li>
+        <li> <a href="#">Dashboard</a> </li>
+        <li> <a href="/admin/createProperty">Create Property</a> </li>
+        <li> <a href="#">Events</a> </li>
+        <li> <a href="#">About</a> </li>
+        <li> <a href="#">Services</a> </li>
+        <li> <a href="#">Contact</a> </li>
+        <li> <a href="javascript:onMessageClick()">Message</a> </li>
+      </ul>
+    </div> <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container">
+        <form action="/adminapi/property" method="post">
+          <div class="form-group row">
+            <label class="col-sm-3" for="title">Title</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="title" placeholder="House">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="propertyType">Type</label>
+            <div class="col-sm-9">
+              <select name="propertyType" class="form-control">
+                <option value="house" selected>house</option>
+                <option value="flat">flat</option>
+                <option value="maisonette">maisonette</option>
+                <option value="bungalow">bungalow</option>
+                <option value="room only">room only</option>
+                <option value="garage">garage</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="address">Address</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="address" id="address" placeholder="Address">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="rentStatus">Status</label>
+            <div class="col-sm-9">
+              <select name="rentStatus" id="rentStatus" class="form-control">
+                <option value="for sale" selected>for sale</option>
+                <option value="rent">rent</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="rentStatus">Availability</label>
+            <div class="col-sm-9">
+              <select name="availability" id="availability" class="form-control">
+                <option value="taken">taken</option>
+                <option value="let agreed">let agreed</option>
+                <option value="available" selected>available</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="NumberOfRoom">Number of Room</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="NumberOfRoom" id="NumberOfRoom" placeholder="Room Number">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="duration">Duration</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control" name="duration" id="duration" placeholder="Duration">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3" for="price">Price</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="price" id="propertyPrice" placeholder="Price">
+            </div>
+          </div>
+          <button class="btn btn-success" id="submit">Submit</button>
+        </form>
+      </div>
+    </div> <!-- /#page-content-wrapper -->
+  </div> <!-- /#wrapper -->
+</main>
+<footer>
+</footer>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/js/main.js"></script>
+<script>
+  $('#submit').click(function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '/createProperty',
+      data: {
+        title: $('#title').val(),
+        Address: $('#Address').val(),
+        rentStatus: $('#rentStatus').val(),
+        availability: $('#availability').val(),
+        NumberOfRoom : $('#NumberOfRoom').val(),
+        duration: $('#duration').val(),
+        propertyPrice: $('#propertyPrice').val(),
+      },
+      success: function(data) {
+        if(data.status === 'Property Created') {
+          $('#title').val('');
+          $('#Address').val('');
+          $('#rentStatus').val('');
+          $('#availability').val('');
+          $('#NumberOfRoom').val('');
+          $('#duration').val('');
+          $('#propertyPrice').val('');
+        }
+        alert(data.status);
+      }
+    });
+  })
+</script>
+<body>
+  <!-- <script>$(function(){app.adminChat()});</script> -->
+
+</body>
+
+</html>

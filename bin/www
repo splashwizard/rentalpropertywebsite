@@ -1,0 +1,17 @@
+#!/usr/bin/nodejs
+var debug = require('debug')('my-application');
+var app = require('../app');
+
+ // Chat application components
+ console.log("before routes");
+//  var routes 		= require('../message/message.route');
+// var session 	= require('../message/session');
+var ioServer 	= require('../message/socket')(app);
+// var logger 		= require('./app/logger');
+
+
+app.set('port', config['process.env.PORT'] || 3000);
+
+var server = ioServer.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});

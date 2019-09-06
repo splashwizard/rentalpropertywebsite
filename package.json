@@ -1,0 +1,49 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "redis-server | nodemon ./bin/www",
+    "start-win": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@k3rn31p4nic/google-translate-api": "github:k3rn31p4nic/google-translate-api",
+    "async": "^2.6.1",
+    "axios": "^0.19.0",
+    "bad-words": "^3.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.14.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.0.0",
+    "cookie-parser": "^1.4.3",
+    "debug": "^3.1.0",
+    "dotenv": "^8.0.0",
+    "ejs": "^2.6.2",
+    "express": "^4.16.3",
+    "express-fileupload": "^1.1.5",
+    "express-session": "^1.16.2",
+    "glob": "^7.1.2",
+    "helmet": "^3.12.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^4.2.10",
+    "morgan": "^1.9.0",
+    "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^2.2.1",
+    "node-fetch": "^2.6.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "redis": "^2.8.0",
+    "socket.io": "^2.2.0",
+    "socket.io-file": "^2.0.31",
+    "socket.io-file-client": "^2.0.2",
+    "socket.io-redis": "^5.2.0",
+    "socketio-file-upload": "^0.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

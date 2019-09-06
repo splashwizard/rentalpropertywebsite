@@ -1,0 +1,66 @@
+<!-- views/pages/admin.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/head %>
+  <link rel="stylesheet" href="/public/css/admin-style.css">
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+  </head>
+
+<body>
+  <main>
+    <nav class="navbar navbar-expand navbar-dark bg-primary"> <span class="admin-logo">Logo</span> <a
+        href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon"></span></a> <button
+        class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
+        aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation"> <span
+          class="navbar-toggler-icon"></span> </button>
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item"> <a class="nav-link" href="#">Link</a> </li>
+        </ul>
+        <form class="form-inline my-2 my-md-0"> </form>
+      </div>
+    </nav>
+    <div id="wrapper" class="toggled">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand"> <a href="#"> Start Bootstrap </a> </li>
+          <li> <a href="#">Dashboard</a> </li>
+          <li> <a href="/admin/createProperty">Create Property</a> </li>
+          <li> <a href="#">Overview</a> </li>
+          <li> <a href="#">Events</a> </li>
+          <li> <a href="#">About</a> </li>
+          <li> <a href="#">Services</a> </li>
+          <li> <a href="#">Contact</a> </li>
+          <li> <a href="javascript:onMessageClick()">Message</a> </li>
+        </ul>
+      </div> <!-- /#sidebar-wrapper -->
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <h1>Simple Sidebar</h1>
+          <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and
+            will appear non-collapsed on larger screens. When toggled using the button below, the menu will
+            appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+          <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+        </div>
+        <div id='message-content' class='container-fluid' style='display: none;'>
+            <div class="title">Messages</div>
+        </div>
+      </div> <!-- /#page-content-wrapper -->
+    </div> <!-- /#wrapper -->
+  </main>
+  <footer>
+  </footer>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/public/js/main.js"></script>
+  <!-- <script>$(function(){app.adminChat()});</script> -->
+
+</body>
+
+</html>

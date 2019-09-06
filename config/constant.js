@@ -1,0 +1,2 @@
+constant={};
+module.exports=constant;

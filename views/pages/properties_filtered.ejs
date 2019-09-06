@@ -1,0 +1,140 @@
+<!-- views/pages/properties.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="/public/leafletmap/css/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <% include ../partials/head %>
+</head>
+
+<body>
+  <header>
+    <% include ../partials/header %>
+  </header>
+
+  <main>
+    <section class="bottom-cardbox threebox popular-listings">
+      <div class="container">
+        <form action="/s/properties" method="post" id="regionForm" novalidate>
+          <div style="display: flex;margin-bottom: 20px">
+            <input type="text" list="regionList" class="form-control" style="width: 400px" name="region" placeholder="Search Region" id="region">
+            <button type="submit" class="btn btn-success"><i class="fa fa-search"></i></button>
+          </div>
+        </form>
+        <datalist id="regionList">
+          <option value="Internet Explorer">
+          <option value="Firefox">
+          <option value="Chrome">
+          <option value="Opera">
+          <option value="Safari">
+        </datalist>
+        <h4 style="font-weight: normal"> Showing Results in <%= region%></h4>
+        <h3> <%= propertyList.length %> Place to Stay</h3>
+        <div class="card-deck">
+          <% propertyList.forEach( function(property) { %>
+            <div class="m-b-30" style="width:33%!important;padding: 15px;">
+              <a href="/property_item/1" target="_blank" aria-hidden="true" tabindex="-1">
+                <div id="featured" class="carousel slide carousel" data-ride="carousel">
+                  <!--slider navigate-->
+                  <ol class="carousel-indicators top-indicator">
+                    <% for( var i=0; i < property["propertyImageUrls"].length; i++ ) {
+                    if(i === 0) {%>
+                      <li data-target="#featured" data-slide-to="<%= i %>" class="active"></li>
+                    <% } else {%>
+                      <li data-target="#featured" data-slide-to="<%= i %>"></li> <%
+                    }
+                    } %>
+
+                  </ol>
+                  <div class="carousel-inner">
+                    <!--Item slider-->
+                    <% property["propertyImageUrls"].forEach( function(image) { %>
+                      <div class="<%= property["propertyImageUrls"][0] === image ? "carousel-item active" : "carousel-item"%>" >
+                        <img class="card-img-top img-fluid" src="<%= image %>" alt="Card image cap">
+                      </div>
+                    <% }) %>
+                  </div>
+                </div>
+
+                <div class="card-body" style="background-color: white;">
+                  <div class="fullwidthbox">
+                    <div class="rating">
+
+
+
+
+                      <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Meh">1
+                        stars</label>
+                      <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2
+                        stars</label>
+                      <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Kinda bad">3
+                        stars</label>
+                      <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Sucks big tim">4
+                        stars</label>
+                      <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Sucks big time">5
+                        star</label>
+                    </div>
+                  </div>
+                  <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the industry's standard dummy text ever since the 1500s, when ...</p>
+                  <div class="user-detail" style="float: none;">
+                    <div class="user-pic"><img src="/public/images/Contractors.jpg" alt=""></div>
+                    <div class="user-txt">
+                      <p class="name">Amy</p>
+                      <p class="state">United Kingdom</p>
+                    </div>
+
+                  </div>
+                </div>
+              </a>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+  <footer>
+    <% include ../partials/footer %>
+    <script src="/public/leafletmap/js/leaflet.js"></script>
+    <script>
+      $.ajax({
+        type: 'GET',
+        url: '/getRegionListWithCountry',
+        success: function(data) {
+          const regionList = data.regionList;
+          console.log(regionList);
+          let html = '';
+          for(let item of regionList){
+            html += '<option value="'+ item +'">';
+          }
+          $('#regionList').html(html);
+        }
+      });
+      $('#region').change(function (e) {
+        $.ajax({
+          type: 'GET',
+          url: '/getRegionListWithCountry',
+          success: function(data) {
+            const regionList = data.regionList;
+            console.log(regionList);
+            let html = '';
+            for(let item of regionList){
+              html += '<option value="'+ item +'">';
+            }
+            $('#regionList').html(html);
+          }
+        });
+      })
+      // $('#region').press(function (e) {
+      //   if(e.keyCode === 13){
+      //     $('#regionForm').submit();
+      //   }
+      // })
+    </script>
+  </footer>
+</body>
+
+</html>

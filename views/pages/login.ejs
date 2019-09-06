@@ -1,0 +1,82 @@
+<!-- views/pages/login.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="/public/leafletmap/css/leaflet.css">
+  <% include ../partials/head %>
+</head>
+
+<body>
+  <header>
+    <% include ../partials/header %>
+  </header>
+
+  <main>
+    <section class="titlerow">
+      <div class="container">
+        <div class="row">
+          <div class="col col-sm-12">
+            <h1>Login</h1>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="login">
+      <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+          <div id="login-column" class="col-md-4">
+            <div id="login-box" class="col-md-12">
+              <form id="login-form" class="form" action="login" method="post">
+
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                  <div class="col-sm-9">
+                    <input type="email" name="email" id="email" class="form-control form-control-lg"
+                      placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">Password:</label>
+                  <div class="col-sm-9">
+                    <input type="Password" name="password" id="password" class="form-control form-control-lg"
+                      placeholder="Password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <br>
+                  <input type="submit" name="submit" class="btn btn-primary btn-md" value="Submit">
+                  <a href="#" class=" btn btn-info btn-md float-right">Register</a>
+                </div>
+                <div id="register-link" class="text-right">
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="col-md-12 text-center">
+          <br>
+          <br>
+          <a href="auth/facebook" class=" btn btn-primary btn-lg">Facebox</a>
+          <a href="auth/google" class=" btn btn-danger btn-lg">Google</a>
+          <a href="auth/linkedin" class=" btn btn-info btn-lg">Linkedin</a>
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <% include ../partials/footer %>
+    <script src="/public/leafletmap/js/leaflet.js"></script>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!-- views/pages/login.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="/public/leafletmap/css/leaflet.css">
+  <% include ../partials/head %>
+</head>
+
+<body>
+  <header>
+    <% include ../partials/header %>
+    <%
+      var genderData=[ { value:"m", text: "Male"}, { value:"f", text: "Female"}]
+      var statusData=[ { value:"Active", text: "Active"}, { value:"Deleted", text: "Deleted"}]
+    %>
+  </header>
+
+  <main>
+    <section class="titlerow">
+      <div class="container">
+        <div class="row">
+          <div class="col col-sm-12">
+            <h1>Login</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="login">
+      <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+          <div id="login-column" class="col-md-4">
+            <div id="login-box" class="col-md-12">
+              <form id="login-form" class="form" action="login" method="post">
+
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">Email:</label>
+                  <div class="col-sm-9">
+                    <input type="email" name="email" id="email" class="form-control form-control-lg"
+                      placeholder="Email" value="<%= locals.user.email%>">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">Password:</label>
+                  <div class="col-sm-9">
+                    <input type="Password" name="password" id="password" class="form-control form-control-lg"
+                      placeholder="Password" value="<%= locals.user.password%>">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">Status:</label>
+                  <div class="col-sm-9">
+                    <select id="status" class="form-control">
+                      <% statusData.forEach(function (item) {  %>
+                        <option value="<%=item.value %>" <%= item.value == locals.user.status ? 'selected' : ''%> ><%=item.text%></option>
+                      <% })%>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="name" class="col-sm-3 col-form-label">name:</label>
+                  <div class="col-sm-9">
+                    <input type="text" name="name" id="name" class="form-control form-control-lg"
+                           placeholder="Name" value="<%= locals.user.name%>">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">gender:</label>
+                  <div class="col-sm-9">
+                    <select id="status" class="form-control">
+                      <% genderData.forEach(function (item) {  %>
+                        <option value="<%=item.value %>" <%= item.value == locals.user.profile.gender ? 'selected' : ''%> ><%=item.text%></option>
+                      <% })%>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">location:</label>
+                  <div class="col-sm-9">
+                    <input type="text" name="location" id="location" class="form-control form-control-lg"
+                           placeholder="Location" value="<%= locals.user.location%>">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-3 col-form-label">provider:</label>
+                  <div class="col-sm-9">
+                    <input type="text" name="provider" id="provider" class="form-control form-control-lg"
+                           value="<%= locals.user.provider%>">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <br>
+                  <input type="submit" name="submit" class="btn btn-primary btn-md" value="Submit" id="submit">
+                </div>
+                <div id="register-link" class="text-right">
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <% include ../partials/footer %>
+    <script src="/public/leafletmap/js/leaflet.js"></script>
+    <script>
+      $('#submit').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'PUT',
+          url: '/updateUser/<%=locals.user._id %>',
+          data: {
+            email: $('#email').val(),
+            password: $('#password').val(),
+            status: $('#status').val(),
+            name: $('#name').val(),
+            gender : $('#gender').val(),
+            location: $('#location').val(),
+            provider: $('#provider').val(),
+          },
+          success: function(data) {
+            if(data.status === 'Property Created') {
+              $('#email').val('');
+              $('#password').val('');
+              $('#status').val('');
+              $('#name').val('');
+              $('#gender').val('');
+              $('#duration').val('');
+              $('#location').val('');
+              $('#provider').val('');
+            }
+            alert(data.status);
+          }
+        });
+      })
+    </script>
+  </footer>
+</body>
+
+</html>
