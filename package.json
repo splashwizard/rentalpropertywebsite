@@ -37,7 +37,7 @@
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-local": "^1.0.0",
     "redis": "^2.8.0",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.5.0",
     "socket.io-file": "^2.0.31",
     "socket.io-file-client": "^2.0.2",
     "socket.io-redis": "^5.2.0",
